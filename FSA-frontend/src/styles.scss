@@ -1,1 +1,111 @@
-/* You can add global styles to this file, and also import other style files */
+// Variables — override Bootstrap tokens before import
+$primary: #0d6efd;
+$body-bg: #f0f2f5;
+$font-family-sans-serif: 'Inter', system-ui, sans-serif;
+$card-border-radius: 0.75rem;
+$card-box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+// Global
+body {
+  min-height: 100vh;
+}
+
+.navbar {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.card {
+  border: 0;
+  box-shadow: $card-box-shadow;
+}
+
+.b-section-headline {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+  color: #fff;
+  padding: 3rem 0 2.5rem;
+  margin-bottom: 2rem;
+
+  h1, h2 {
+    color: #fff;
+  }
+}
+
+.page-header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+  color: #fff;
+  padding: 2.5rem 0 2rem;
+  margin-bottom: 2rem;
+
+  h1 {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.btn {
+  font-weight: 600;
+}
+
+.player-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  border: 2px solid transparent;
+
+  &--available {
+    background: #fff;
+    border-color: #dee2e6;
+    color: #212529;
+
+    &:hover {
+      border-color: var(--bs-primary);
+      color: var(--bs-primary);
+    }
+  }
+
+  &--selected {
+    background: #e8f4fd;
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
+
+    &:hover {
+      background: #fde8e8;
+      border-color: #dc3545;
+      color: #dc3545;
+    }
+  }
+}
+
+.balance-score {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--bs-success);
+}
+
+.team-card {
+  border-left: 4px solid var(--bs-primary);
+
+  &--b {
+    border-left-color: var(--bs-warning);
+  }
+}
+

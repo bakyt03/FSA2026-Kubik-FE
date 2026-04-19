@@ -1,0 +1,35 @@
+<div class="page-header">
+  <div class="container">
+    <h1>{{ 'home.title' | translate }}</h1>
+    <p>{{ 'home.subtitle' | translate }}</p>
+  </div>
+</div>
+
+<app-section-container>
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card h-100 p-4">
+        <div class="card-body">
+          <h3 class="card-title fw-bold mb-2">
+            <span class="text-primary me-2">&#9654;</span>
+            {{ 'players.title' | translate }}
+          </h3>
+          <p class="card-text text-muted">{{ 'home.playersDesc' | translate }}</p>
+          <a routerLink="/players" class="btn btn-primary mt-3">{{ 'home.goToPlayers' | translate }}</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card h-100 p-4">
+        <div class="card-body">
+          <h3 class="card-title fw-bold mb-2">
+            <span class="text-warning me-2">&#9670;</span>
+            {{ 'teamSuggestions.title' | translate }}
+          </h3>
+          <p class="card-text text-muted">{{ 'home.teamSuggestionsDesc' | translate }}</p>
+          <a routerLink="/team-suggestions" class="btn btn-warning mt-3 text-white">{{ 'home.goToTeamSuggestions' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-section-container>
