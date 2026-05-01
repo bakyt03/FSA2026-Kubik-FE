@@ -1,5 +1,5 @@
 export const environment = {
-  keyCloakUrl: 'https://app.fullstackacademy.sk/auth',
-  beUrl: 'https://app.fullstackacademy.sk',
-  appUrl: 'https://app.fullstackacademy.sk',
+  keyCloakUrl: 'https://keycloak.20.234.120.137.nip.io',
+  beUrl: 'https://app.20.234.120.137.nip.io',
+  appUrl: 'https://app.20.234.120.137.nip.io',
 };
