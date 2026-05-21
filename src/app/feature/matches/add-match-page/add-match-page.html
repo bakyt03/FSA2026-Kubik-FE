@@ -1,0 +1,152 @@
+<div class="add-match-page" [style.backgroundImage]="mapBackground()">
+  <div class="add-match-overlay">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <!-- Map selector -->
+      <div class="map-row">
+        <select class="map-select" formControlName="map">
+          @for (m of maps; track m) {
+            <option [value]="m">{{ m }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Score -->
+      <div class="score-row">
+        <input type="number" class="score-input score-t1" formControlName="team1Score" min="0" max="100" placeholder="0" />
+        <span class="score-sep">:</span>
+        <input type="number" class="score-input score-t2" formControlName="team2Score" min="0" max="100" placeholder="0" />
+      </div>
+      @if (form.hasError('invalidScore') && form.controls.team1Score.dirty && form.controls.team2Score.dirty) {
+        <div class="score-error">Invalid score. Regulation: first to 13, win by 2+. OT: first to 16/19/22…, win by 2+.</div>
+      }
+
+      <!-- Date -->
+      <div class="date-row">
+        <input type="date" class="date-input" formControlName="playedAt" />
+        <button type="button" class="btn-reset" (click)="resetDate()">Reset</button>
+      </div>
+
+      <!-- DAMAGE / ADR tabs -->
+      <div class="tabs-row">
+        <button
+          type="button"
+          class="tab-btn"
+          [class.tab-active]="activeTab() === 'DAMAGE'"
+          (click)="setTab('DAMAGE')"
+        >DAMAGE</button>
+        <button
+          type="button"
+          class="tab-btn"
+          [class.tab-active]="activeTab() === 'ADR'"
+          (click)="setTab('ADR')"
+        >ADR</button>
+      </div>
+
+      <!-- Teams -->
+      <div class="teams-grid">
+
+        <!-- Team 1 -->
+        <div>
+          <table class="team-table" formArrayName="team1Players">
+            <thead>
+              <tr class="team1-head">
+                <th class="th-player">TEAM 1</th>
+                <th class="th-stat">KILLS</th>
+                <th class="th-stat">DEATHS</th>
+                <th class="th-stat">{{ activeTab() }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of form.controls.team1Players.controls; track $index; let i = $index) {
+                <tr class="stat-row" [formGroupName]="i">
+                  <td>
+                    <select class="player-select" formControlName="playerId">
+                      <option [ngValue]="null">—</option>
+                      @for (p of availablePlayersFor().team1[i]; track p.id) {
+                        <option [ngValue]="p.id">{{ p.nickname }}</option>
+                      }
+                    </select>
+                  </td>
+                  @if (row.controls.playerId.value != null) {
+                    <td class="text-center">
+                      <input type="number" class="stat-input stat-t1" formControlName="kills" min="0" />
+                    </td>
+                    <td class="text-center">
+                      <input type="number" class="stat-input stat-t1" formControlName="deaths" min="0" />
+                    </td>
+                    <td class="text-center">
+                      @if (activeTab() === 'DAMAGE') {
+                        <input type="number" class="stat-input stat-t1" formControlName="damage" min="0" />
+                      } @else {
+                        <span class="stat-t1">{{ getStatDisplay(row.controls.damage.value) }}</span>
+                      }
+                    </td>
+                  } @else {
+                    <td class="stat-empty text-center">-</td>
+                    <td class="stat-empty text-center">-</td>
+                    <td class="stat-empty text-center">-</td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Team 2 -->
+        <div>
+          <table class="team-table" formArrayName="team2Players">
+            <thead>
+              <tr class="team2-head">
+                <th class="th-player">TEAM 2</th>
+                <th class="th-stat">KILLS</th>
+                <th class="th-stat">DEATHS</th>
+                <th class="th-stat">{{ activeTab() }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of form.controls.team2Players.controls; track $index; let i = $index) {
+                <tr class="stat-row" [formGroupName]="i">
+                  <td>
+                    <select class="player-select" formControlName="playerId">
+                      <option [ngValue]="null">—</option>
+                      @for (p of availablePlayersFor().team2[i]; track p.id) {
+                        <option [ngValue]="p.id">{{ p.nickname }}</option>
+                      }
+                    </select>
+                  </td>
+                  @if (row.controls.playerId.value != null) {
+                    <td class="text-center">
+                      <input type="number" class="stat-input stat-t2" formControlName="kills" min="0" />
+                    </td>
+                    <td class="text-center">
+                      <input type="number" class="stat-input stat-t2" formControlName="deaths" min="0" />
+                    </td>
+                    <td class="text-center">
+                      @if (activeTab() === 'DAMAGE') {
+                        <input type="number" class="stat-input stat-t2" formControlName="damage" min="0" />
+                      } @else {
+                        <span class="stat-t2">{{ getStatDisplay(row.controls.damage.value) }}</span>
+                      }
+                    </td>
+                  } @else {
+                    <td class="stat-empty text-center">-</td>
+                    <td class="stat-empty text-center">-</td>
+                    <td class="stat-empty text-center">-</td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Submit -->
+      <div class="text-center mt-4">
+        <button type="submit" class="btn-confirm" [disabled]="form.invalid">{{ 'matches.create.submit' | translate }}</button>
+      </div>
+
+    </form>
+  </div>
+</div>

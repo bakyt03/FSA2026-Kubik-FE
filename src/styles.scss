@@ -109,3 +109,14 @@ body {
   }
 }
 
+.match-modal-wrap {
+  background-size: cover;
+  background-position: center;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.match-modal-overlay {
+  background: rgba(0, 0, 0, 0.78);
+}
+

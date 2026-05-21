@@ -1,0 +1,57 @@
+<div class="page-header">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between">
+      <div>
+        <h1>{{ 'matches.title' | translate }}</h1>
+      </div>
+      <button type="button" class="btn btn-light fw-semibold" (click)="onAddMatchClick()">
+        + {{ 'matches.addMatch' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-section-container>
+  @if (matches() === undefined) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+      </div>
+    </div>
+  } @else if (matches()!.length === 0) {
+    <div class="card text-center p-5">
+      <p class="text-muted mb-3">{{ 'matches.noMatches' | translate }}</p>
+      <div>
+        <button type="button" class="btn btn-primary" (click)="onAddMatchClick()">
+          + {{ 'matches.addMatch' | translate }}
+        </button>
+      </div>
+    </div>
+  } @else {
+    <div class="matches-grid">
+      @for (match of matches(); track match.id) {
+        <div
+          class="match-card"
+          [style.backgroundImage]="getMapBackground(match.map)"
+        >
+          <div class="match-card__overlay">
+            <img
+              class="match-card__logo"
+              [src]="getMapLogo(match.map)"
+              [alt]="match.map"
+            />
+            <div class="match-card__content">
+              <div class="match-card__score">{{ match.team1Score }} : {{ match.team2Score }}</div>
+              <div class="match-card__date">{{ formatDate(match.playedAt) }}</div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="mt-3 text-end">
+      <button type="button" class="btn btn-primary" (click)="onAddMatchClick()">
+        + {{ 'matches.addMatch' | translate }}
+      </button>
+    </div>
+  }
+</app-section-container>
