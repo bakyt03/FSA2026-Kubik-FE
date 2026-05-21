@@ -35,6 +35,10 @@
             <th class="ps-4">#</th>
             <th>{{ 'players.name' | translate }}</th>
             <th>{{ 'players.nickname' | translate }}</th>
+            <th class="text-center">{{ 'players.matches' | translate }}</th>
+            <th class="text-center">{{ 'players.avgKills' | translate }}</th>
+            <th class="text-center">{{ 'players.avgDeaths' | translate }}</th>
+            <th class="text-center">{{ 'players.avgAdr' | translate }}</th>
           </tr>
         </thead>
         <tbody>
@@ -47,6 +51,10 @@
                   {{ player.nickname }}
                 </span>
               </td>
+              <td class="text-center text-muted">{{ player.matchesPlayed ?? '—' }}</td>
+              <td class="text-center">{{ player.matchesPlayed ? (player.avgKills | number:'1.1-1') : '—' }}</td>
+              <td class="text-center">{{ player.matchesPlayed ? (player.avgDeaths | number:'1.1-1') : '—' }}</td>
+              <td class="text-center">{{ player.matchesPlayed ? (player.avgAdr | number:'1.0-0') : '—' }}</td>
             </tr>
           }
         </tbody>

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { BehaviorSubject, switchMap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { DecimalPipe } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PlayerApi } from '../player-api';
 import { SectionContainer } from '../../../shared/component/section-container/section-container';
@@ -9,7 +10,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-players-page',
-  imports: [SectionContainer, TranslatePipe],
+  imports: [SectionContainer, TranslatePipe, DecimalPipe],
   templateUrl: './players-page.html',
 })
 export class PlayersPage {
