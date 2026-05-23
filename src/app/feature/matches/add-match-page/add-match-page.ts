@@ -28,6 +28,16 @@ function csScoreValidator(control: AbstractControl): ValidationErrors | null {
   return isValidCsScore(s1, s2) ? null : { invalidScore: true };
 }
 
+function allPlayersSelectedValidator(control: AbstractControl): ValidationErrors | null {
+  const fg = control as FormGroup;
+  const team1 = (fg.get('team1Players') as FormArray).controls;
+  const team2 = (fg.get('team2Players') as FormArray).controls;
+  const allSelected =
+    team1.every((r) => (r as FormGroup).get('playerId')?.value != null) &&
+    team2.every((r) => (r as FormGroup).get('playerId')?.value != null);
+  return allSelected ? null : { incompleteTeams: true };
+}
+
 type PlayerRowGroup = FormGroup<{
   playerId: FormControl<number | null>;
   kills: FormControl<number>;
@@ -66,7 +76,7 @@ export class AddMatchPage {
       team1Players: new FormArray<PlayerRowGroup>(Array.from({ length: 5 }, () => this.createPlayerRow())),
       team2Players: new FormArray<PlayerRowGroup>(Array.from({ length: 5 }, () => this.createPlayerRow())),
     },
-    { validators: [csScoreValidator] },
+    { validators: [csScoreValidator, allPlayersSelectedValidator] },
   );
 
   protected selectedMap = toSignal(this.form.controls.map.valueChanges, { initialValue: 'MIRAGE' });
@@ -141,10 +151,8 @@ export class AddMatchPage {
         team1Score: v.team1Score ?? 0,
         team2Score: v.team2Score ?? 0,
         team1Players: v.team1Players
-          .filter((p) => p.playerId != null)
           .map((p) => ({ playerId: p.playerId!, kills: p.kills, deaths: p.deaths, damage: p.damage })),
         team2Players: v.team2Players
-          .filter((p) => p.playerId != null)
           .map((p) => ({ playerId: p.playerId!, kills: p.kills, deaths: p.deaths, damage: p.damage })),
       })
       .subscribe({

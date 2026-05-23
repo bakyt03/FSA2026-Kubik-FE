@@ -61,5 +61,10 @@
   "matches.create.damage": "DMG",
   "matches.create.addPlayer": "Pridať hráča",
   "matches.create.submit": "Potvrdiť štatistiky",
-  "matches.create.cancel": "Zrušiť"
+  "matches.create.cancel": "Zrušiť",
+  "matches.create.incompleteTeams": "Všetky 4 sloty hráčov musia byť vyplnené pred odoslaním.",
+  "matches.backToMatches": "Späť na zápasy",
+  "players.backToPlayers": "Späť na hráčov",
+  "players.matchHistory": "História zápasov",
+  "players.noMatchHistory": "Zatiaľ žiadna história zápasov."
 }

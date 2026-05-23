@@ -26,6 +26,10 @@ export class MatchesPage {
     this.router.navigate(['/matches/add']);
   }
 
+  protected onMatchClick(id: number) {
+    this.router.navigate(['/matches', id]);
+  }
+
   protected getMapBackground(map: string): string {
     const name = this.mapName(map);
     const ext = map === 'ANUBIS' ? 'webp' : 'jpg';

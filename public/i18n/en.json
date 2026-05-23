@@ -61,5 +61,10 @@
   "matches.create.damage": "DMG",
   "matches.create.addPlayer": "Add Player",
   "matches.create.submit": "Confirm Stats",
-  "matches.create.cancel": "Cancel"
+  "matches.create.cancel": "Cancel",
+  "matches.create.incompleteTeams": "All 10 player slots must be filled before submitting.",
+  "matches.backToMatches": "Back to Matches",
+  "players.backToPlayers": "Back to Players",
+  "players.matchHistory": "Match History",
+  "players.noMatchHistory": "No match history yet."
 }

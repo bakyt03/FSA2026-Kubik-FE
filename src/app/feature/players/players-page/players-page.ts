@@ -3,6 +3,7 @@ import { BehaviorSubject, switchMap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DecimalPipe } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 import { PlayerApi } from '../player-api';
 import { SectionContainer } from '../../../shared/component/section-container/section-container';
 import { CreatePlayerModal } from '../create-player-modal/create-player-modal';
@@ -16,6 +17,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class PlayersPage {
   private api = inject(PlayerApi);
   private modal = inject(NgbModal);
+  private router = inject(Router);
 
   private refresh$ = new BehaviorSubject<void>(undefined);
 
@@ -28,5 +30,9 @@ export class PlayersPage {
       () => this.refresh$.next(),
       () => {},
     );
+  }
+
+  protected onPlayerClick(id: number) {
+    this.router.navigate(['/players', id]);
   }
 }

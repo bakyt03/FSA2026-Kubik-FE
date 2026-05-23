@@ -43,7 +43,7 @@
         </thead>
         <tbody>
           @for (player of players(); track player.id; let i = $index) {
-            <tr>
+            <tr style="cursor: pointer" (click)="onPlayerClick(player.id)">
               <td class="ps-4 text-muted">{{ i + 1 }}</td>
               <td class="fw-semibold">{{ player.name }}</td>
               <td>

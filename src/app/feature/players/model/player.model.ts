@@ -8,6 +8,23 @@ export interface PlayerSummary {
   avgAdr?: number;
 }
 
+export interface PlayerMatchHistoryEntry {
+  matchId: number;
+  map: string;
+  playedAt: string;
+  team1Score: number;
+  team2Score: number;
+  playerTeam: string;
+  kills: number;
+  deaths: number;
+  damage: number;
+  adr: number;
+}
+
+export interface PlayerDetail extends PlayerSummary {
+  recentMatches: PlayerMatchHistoryEntry[];
+}
+
 export interface CreatePlayerRequest {
   name: string;
   nickname: string;

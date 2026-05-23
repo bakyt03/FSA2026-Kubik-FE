@@ -144,6 +144,9 @@
 
       <!-- Submit -->
       <div class="text-center mt-4">
+        @if (form.hasError('incompleteTeams') && form.dirty) {
+          <div class="score-error mb-2">{{ 'matches.create.incompleteTeams' | translate }}</div>
+        }
         <button type="submit" class="btn-confirm" [disabled]="form.invalid">{{ 'matches.create.submit' | translate }}</button>
       </div>
 

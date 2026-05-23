@@ -32,8 +32,8 @@
       @for (match of matches(); track match.id) {
         <div
           class="match-card"
-          [style.backgroundImage]="getMapBackground(match.map)"
-        >
+          [style.backgroundImage]="getMapBackground(match.map)"          (click)="onMatchClick(match.id)"
+          style="cursor: pointer"        >
           <div class="match-card__overlay">
             <img
               class="match-card__logo"
