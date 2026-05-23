@@ -1,0 +1,115 @@
+@if (match() === undefined) {
+  <div class="text-center py-5">
+    <div class="spinner-border text-light" role="status">
+      <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
+    </div>
+  </div>
+} @else if (match()) {
+  <div class="match-detail-page" [style.backgroundImage]="mapBackground()">
+    <div class="match-detail-overlay">
+
+      <!-- Back -->
+      <div class="back-row">
+        <button type="button" class="btn-back" (click)="goBack()">← {{ 'matches.backToMatches' | translate }}</button>
+      </div>
+
+      <!-- Map name -->
+      <div class="map-row">
+        <span class="map-name">{{ match()!.map }}</span>
+      </div>
+
+      <!-- Score -->
+      <div class="score-row">
+        <span class="score-t1">{{ match()!.team1Score }}</span>
+        <span class="score-sep">:</span>
+        <span class="score-t2">{{ match()!.team2Score }}</span>
+      </div>
+
+      <!-- Date -->
+      <div class="date-row">
+        <span class="match-date">{{ formatDate(match()!.playedAt) }}</span>
+      </div>
+
+      <!-- DAMAGE / ADR tabs -->
+      <div class="tabs-row">
+        <button
+          type="button"
+          class="tab-btn"
+          [class.tab-active]="activeTab() === 'DAMAGE'"
+          (click)="setTab('DAMAGE')"
+        >DAMAGE</button>
+        <button
+          type="button"
+          class="tab-btn"
+          [class.tab-active]="activeTab() === 'ADR'"
+          (click)="setTab('ADR')"
+        >ADR</button>
+      </div>
+
+      <!-- Teams grid -->
+      <div class="teams-grid">
+
+        <!-- Team 1 -->
+        <div>
+          <table class="team-table">
+            <thead>
+              <tr class="team1-head">
+                <th class="th-player">TEAM 1</th>
+                <th class="th-stat">KILLS</th>
+                <th class="th-stat">DEATHS</th>
+                <th class="th-stat">{{ activeTab() }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (p of match()!.team1Players; track p.playerId) {
+                <tr class="stat-row">
+                  <td class="player-name">{{ p.playerNickname }}</td>
+                  <td class="stat-cell stat-t1">{{ p.kills }}</td>
+                  <td class="stat-cell stat-t1">{{ p.deaths }}</td>
+                  <td class="stat-cell stat-t1">
+                    @if (activeTab() === 'DAMAGE') {
+                      {{ p.damage }}
+                    } @else {
+                      {{ p.adr | number:'1.1-1' }}
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Team 2 -->
+        <div>
+          <table class="team-table">
+            <thead>
+              <tr class="team2-head">
+                <th class="th-player">TEAM 2</th>
+                <th class="th-stat">KILLS</th>
+                <th class="th-stat">DEATHS</th>
+                <th class="th-stat">{{ activeTab() }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (p of match()!.team2Players; track p.playerId) {
+                <tr class="stat-row">
+                  <td class="player-name">{{ p.playerNickname }}</td>
+                  <td class="stat-cell stat-t2">{{ p.kills }}</td>
+                  <td class="stat-cell stat-t2">{{ p.deaths }}</td>
+                  <td class="stat-cell stat-t2">
+                    @if (activeTab() === 'DAMAGE') {
+                      {{ p.damage }}
+                    } @else {
+                      {{ p.adr | number:'1.1-1' }}
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,176 @@
+:host {
+  display: block;
+}
+
+.match-detail-page {
+  min-height: calc(100vh - 56px);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.match-detail-overlay {
+  min-height: calc(100vh - 56px);
+  background: rgba(0, 0, 0, 0.78);
+  padding: 2.5rem 2rem;
+}
+
+.back-row {
+  margin-bottom: 1.5rem;
+}
+
+.btn-back {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.map-row {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.map-name {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.score-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.score-t1 {
+  font-size: 5.5rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #f0c040;
+}
+
+.score-t2 {
+  font-size: 5.5rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #4ecdc4;
+}
+
+.score-sep {
+  font-size: 4rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.date-row {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.match-date {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+.tabs-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.65);
+  padding: 0.3rem 1.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+
+  &.tab-active {
+    background: #e83e6c;
+    color: #fff;
+  }
+
+  &:hover:not(.tab-active) {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
+}
+
+.teams-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.team-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+}
+
+.th-player {
+  text-align: left;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  padding: 0.5rem 0.5rem 0.5rem 0;
+  font-weight: 700;
+}
+
+.th-stat {
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 0.5rem;
+  font-weight: 700;
+}
+
+.team1-head th {
+  color: #f0c040;
+  border-bottom: 2px solid #f0c040;
+}
+
+.team2-head th {
+  color: #4ecdc4;
+  border-bottom: 2px solid #4ecdc4;
+}
+
+.stat-row td {
+  padding: 0.45rem 0.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.player-name {
+  font-size: 0.9rem;
+  padding-left: 0 !important;
+}
+
+.stat-cell {
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.stat-t1 {
+  color: #f0c040;
+}
+
+.stat-t2 {
+  color: #4ecdc4;
+}
