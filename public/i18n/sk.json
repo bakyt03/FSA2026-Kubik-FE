@@ -2,6 +2,7 @@
   "nav.home": "Domov",
   "nav.players": "Hráči",
   "nav.teamSuggestions": "Návrhy tímov",
+  "nav.users": "Používatelia",
   "nav.login": "Prihlásiť sa",
   "nav.logout": "Odhlásiť sa",
   "home.title": "Stats Tracker",
@@ -66,5 +67,15 @@
   "matches.backToMatches": "Späť na zápasy",
   "players.backToPlayers": "Späť na hráčov",
   "players.matchHistory": "História zápasov",
-  "players.noMatchHistory": "Zatiaľ žiadna história zápasov."
+  "players.noMatchHistory": "Zatiaľ žiadna história zápasov.",
+  "users.title": "Správa používateľov",
+  "users.createTitle": "Vytvoriť nového používateľa",
+  "users.email": "Email",
+  "users.password": "Heslo",
+  "users.emailInvalid": "Vyžaduje sa platná emailová adresa.",
+  "users.passwordInvalid": "Heslo musí mať aspoň 8 znakov.",
+  "users.submit": "Vytvoriť používateľa",
+  "users.success": "Používateľ bol úspešne vytvorený.",
+  "users.error": "Vytvorenie používateľa zlyhalo. Skúste znova.",
+  "users.errorConflict": "Používateľ s týmto emailom už existuje."
 }

@@ -1,0 +1,66 @@
+<app-section-container>
+  <div class="users-header mb-4">
+    <h2 class="mb-0">{{ 'users.title' | translate }}</h2>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-5">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h5 class="card-title mb-4">{{ 'users.createTitle' | translate }}</h5>
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+            <div class="mb-3">
+              <label class="form-label fw-medium">{{ 'users.email' | translate }}</label>
+              <input
+                type="email"
+                class="form-control"
+                [class.is-invalid]="form.get('email')!.invalid && form.get('email')!.touched"
+                formControlName="email"
+                autocomplete="off"
+              />
+              @if (form.get('email')!.invalid && form.get('email')!.touched) {
+                <div class="invalid-feedback">{{ 'users.emailInvalid' | translate }}</div>
+              }
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-medium">{{ 'users.password' | translate }}</label>
+              <input
+                type="password"
+                class="form-control"
+                [class.is-invalid]="form.get('password')!.invalid && form.get('password')!.touched"
+                formControlName="password"
+                autocomplete="new-password"
+              />
+              @if (form.get('password')!.invalid && form.get('password')!.touched) {
+                <div class="invalid-feedback">{{ 'users.passwordInvalid' | translate }}</div>
+              }
+            </div>
+
+            @if (success()) {
+              <div class="alert alert-success py-2 mb-3">{{ 'users.success' | translate }}</div>
+            }
+
+            @if (error()) {
+              <div class="alert alert-danger py-2 mb-3">
+                {{ (error() === 'conflict' ? 'users.errorConflict' : 'users.error') | translate }}
+              </div>
+            }
+
+            <button
+              type="submit"
+              class="btn btn-primary w-100"
+              [disabled]="form.invalid || loading()"
+            >
+              @if (loading()) {
+                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+              }
+              {{ 'users.submit' | translate }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-section-container>

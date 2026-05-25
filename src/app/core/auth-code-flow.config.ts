@@ -3,9 +3,10 @@ import { environment } from '../../environments/environment';
 
 export const authCodeFlowConfig: AuthConfig = {
   issuer: environment.keyCloakUrl + '/realms/FSA',
-  redirectUri: environment.appUrl + '/',
+  redirectUri: environment.appUrl + '/home',
   clientId: 'fsa-client',
-  scope: 'openid profile email offline_access',
+  responseType: 'code',
+  scope: 'openid profile email',
   showDebugInformation: true,
   requireHttps: false,
 };

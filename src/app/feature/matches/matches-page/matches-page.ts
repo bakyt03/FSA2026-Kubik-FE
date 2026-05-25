@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatchApi } from '../match-api';
 import { SectionContainer } from '../../../shared/component/section-container/section-container';
 import { TranslatePipe } from '@ngx-translate/core';
+import { UserService } from '../../../user.service';
 
 @Component({
   selector: 'app-matches-page',
@@ -15,6 +16,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class MatchesPage {
   private api = inject(MatchApi);
   private router = inject(Router);
+  private userService = inject(UserService);
+
+  protected readonly isLoggedIn = this.userService.getUser();
 
   private refresh$ = new BehaviorSubject<void>(undefined);
 

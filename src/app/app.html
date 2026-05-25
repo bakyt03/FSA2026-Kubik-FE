@@ -39,6 +39,13 @@
             {{ 'nav.teamSuggestions' | translate }}
           </a>
         </li>
+        @if (isAdmin()) {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="users" routerLinkActive="active">
+              {{ 'nav.users' | translate }}
+            </a>
+          </li>
+        }
       </ul>
 
       <div class="d-flex align-items-center gap-2">

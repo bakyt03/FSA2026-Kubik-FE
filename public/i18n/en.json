@@ -2,6 +2,7 @@
   "nav.home": "Home",
   "nav.players": "Players",
   "nav.teamSuggestions": "Team Suggestions",
+  "nav.users": "Users",
   "nav.login": "Login",
   "nav.logout": "Logout",
   "home.title": "Stats Tracker",
@@ -66,5 +67,15 @@
   "matches.backToMatches": "Back to Matches",
   "players.backToPlayers": "Back to Players",
   "players.matchHistory": "Match History",
-  "players.noMatchHistory": "No match history yet."
+  "players.noMatchHistory": "No match history yet.",
+  "users.title": "User Management",
+  "users.createTitle": "Create New User",
+  "users.email": "Email",
+  "users.password": "Password",
+  "users.emailInvalid": "A valid email address is required.",
+  "users.passwordInvalid": "Password must be at least 8 characters.",
+  "users.submit": "Create User",
+  "users.success": "User created successfully.",
+  "users.error": "Failed to create user. Please try again.",
+  "users.errorConflict": "A user with this email already exists."
 }

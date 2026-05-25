@@ -8,6 +8,7 @@ import { PlayerApi } from '../player-api';
 import { SectionContainer } from '../../../shared/component/section-container/section-container';
 import { CreatePlayerModal } from '../create-player-modal/create-player-modal';
 import { TranslatePipe } from '@ngx-translate/core';
+import { UserService } from '../../../user.service';
 
 @Component({
   selector: 'app-players-page',
@@ -18,6 +19,9 @@ export class PlayersPage {
   private api = inject(PlayerApi);
   private modal = inject(NgbModal);
   private router = inject(Router);
+  private userService = inject(UserService);
+
+  protected readonly isLoggedIn = this.userService.getUser();
 
   private refresh$ = new BehaviorSubject<void>(undefined);
 

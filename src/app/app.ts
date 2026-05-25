@@ -29,6 +29,7 @@ export class App {
 
   protected collapsed = true;
   protected readonly user = this.userService.getUser();
+  protected readonly isAdmin = this.userService.isAdmin;
 
   private langs = ['sk', 'en'];
   protected lang = signal(this.translate.getCurrentLang());
