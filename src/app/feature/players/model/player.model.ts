@@ -6,6 +6,7 @@ export interface PlayerSummary {
   avgKills?: number;
   avgDeaths?: number;
   avgAdr?: number;
+  keycloakId?: string | null;
 }
 
 export interface PlayerMatchHistoryEntry {
@@ -22,10 +23,26 @@ export interface PlayerMatchHistoryEntry {
 }
 
 export interface PlayerDetail extends PlayerSummary {
+  keycloakId?: string | null;
   recentMatches: PlayerMatchHistoryEntry[];
 }
 
 export interface CreatePlayerRequest {
   name: string;
   nickname: string;
+}
+
+export interface PlayerMeDetail extends PlayerSummary {
+  rank: number;
+  recentMatches: PlayerMatchHistoryEntry[];
+}
+
+export interface KeycloakUserDto {
+  id: string;
+  username: string;
+  email: string;
+}
+
+export interface LinkUserRequest {
+  keycloakId: string;
 }

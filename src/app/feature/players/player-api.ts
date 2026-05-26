@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CreatePlayerRequest, PlayerDetail, PlayerSummary } from './model/player.model';
+import { CreatePlayerRequest, PlayerDetail, PlayerMeDetail, PlayerSummary } from './model/player.model';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -20,5 +20,17 @@ export class PlayerApi {
 
   create(request: CreatePlayerRequest) {
     return this.http.post<void>(this.url, request);
+  }
+
+  getMe() {
+    return this.http.get<PlayerMeDetail>(`${this.url}/me`);
+  }
+
+  linkUser(id: number, keycloakId: string) {
+    return this.http.patch<void>(`${this.url}/${id}/link-user`, { keycloakId });
+  }
+
+  unlinkUser(id: number) {
+    return this.http.delete<void>(`${this.url}/${id}/link-user`);
   }
 }

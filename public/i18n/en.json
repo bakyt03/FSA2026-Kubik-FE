@@ -77,5 +77,19 @@
   "users.submit": "Create User",
   "users.success": "User created successfully.",
   "users.error": "Failed to create user. Please try again.",
-  "users.errorConflict": "A user with this email already exists."
+  "users.errorConflict": "A user with this email already exists.",
+  "home.welcome": "Welcome back, {{nickname}}!",
+  "home.rank": "Rank #{{rank}} among friends",
+  "home.lastMatch": "Last Match",
+  "home.latestMatch": "LATEST MATCH",
+  "home.notLinked": "Your account is not linked to any player profile.",
+  "players.linkedAccount": "Linked Account",
+  "players.linkedTo": "Linked to",
+  "players.notLinkedYet": "This player is not linked to any user account yet.",
+  "players.selectUser": "Select Keycloak user",
+  "players.linkUser": "Link",
+  "players.unlinkUser": "Unlink",
+  "players.linkSuccess": "Player successfully linked to user account.",
+  "players.unlinkSuccess": "Player unlinked from user account.",
+  "players.linkConflict": "This user account is already linked to another player."
 }

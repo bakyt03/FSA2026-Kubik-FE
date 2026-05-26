@@ -120,3 +120,112 @@ body {
   background: rgba(0, 0, 0, 0.78);
 }
 
+// ── Latest Match Card ──────────────────────────────────────────────────────────
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6c757d;
+}
+
+.latest-match-card {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+  }
+
+  &__overlay {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 1.75rem 2rem;
+    background: rgba(10, 12, 24, 0.74);
+    min-height: 200px;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 130px;
+  }
+
+  &__logo {
+    width: 54px;
+    height: 54px;
+  }
+
+  &__score {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  &__meta {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  &__teams {
+    display: flex;
+    gap: 2.5rem;
+    flex: 1;
+    justify-content: flex-end;
+  }
+}
+
+.lmc-team {
+  min-width: 170px;
+
+  &__header {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+    &--1 { color: #e46bae; }
+    &--2 { color: #5bc8d4; }
+  }
+}
+
+.lmc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.2rem 0;
+}
+
+.lmc-name {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.lmc-adr {
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-width: 2.5rem;
+  text-align: right;
+
+  &--1 { color: #e46bae; }
+  &--2 { color: #5bc8d4; }
+}
+

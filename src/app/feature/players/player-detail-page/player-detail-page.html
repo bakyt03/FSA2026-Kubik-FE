@@ -91,5 +91,47 @@
       </div>
     }
 
+    @if (userService.isAdmin()) {
+      <div class="card p-4 mt-4">
+        <h5 class="mb-3">{{ 'players.linkedAccount' | translate }}</h5>
+
+        @if (linkedUsername()) {
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="badge bg-success-subtle text-success-emphasis px-3 py-2 fs-6">
+              &#10003; {{ 'players.linkedTo' | translate }} <strong>{{ linkedUsername() }}</strong>
+            </span>
+          </div>
+        } @else {
+          <p class="text-muted small mb-3">{{ 'players.notLinkedYet' | translate }}</p>
+        }
+
+        @if (linkMessage()) {
+          <div class="alert alert-success py-2">{{ linkMessage()! | translate }}</div>
+        }
+        @if (linkError()) {
+          <div class="alert alert-danger py-2">{{ linkError()! | translate }}</div>
+        }
+        <div class="d-flex align-items-end gap-3 flex-wrap">
+          <div class="flex-grow-1">
+            <label class="form-label">{{ 'players.selectUser' | translate }}</label>
+            <select class="form-select" [ngModel]="selectedKeycloakId()" (ngModelChange)="selectedKeycloakId.set($event)">
+              <option value="">— {{ 'players.selectUser' | translate }} —</option>
+              @for (u of filteredKeycloakUsers(); track u.id) {
+                <option [value]="u.id">{{ u.username }} ({{ u.email }})</option>
+              }
+            </select>
+          </div>
+          <button class="btn btn-primary" [disabled]="!selectedKeycloakId()" (click)="linkUser()">
+            {{ 'players.linkUser' | translate }}
+          </button>
+          @if (linkedUsername()) {
+            <button class="btn btn-outline-danger" (click)="unlinkUser()">
+              {{ 'players.unlinkUser' | translate }}
+            </button>
+          }
+        </div>
+      </div>
+    }
+
   </app-section-container>
 }

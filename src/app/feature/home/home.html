@@ -5,31 +5,140 @@
   </div>
 </div>
 
-<app-section-container>
-  <div class="row g-4">
-    <div class="col-md-6">
-      <div class="card h-100 p-4">
-        <div class="card-body">
-          <h3 class="card-title fw-bold mb-2">
-            <span class="text-primary me-2">&#9654;</span>
-            {{ 'players.title' | translate }}
-          </h3>
-          <p class="card-text text-muted">{{ 'home.playersDesc' | translate }}</p>
-          <a routerLink="/players" class="btn btn-primary mt-3">{{ 'home.goToPlayers' | translate }}</a>
-        </div>
+@if (!loaded()) {
+  <app-section-container>
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="card h-100 p-4">
-        <div class="card-body">
-          <h3 class="card-title fw-bold mb-2">
-            <span class="text-warning me-2">&#9670;</span>
-            {{ 'teamSuggestions.title' | translate }}
-          </h3>
-          <p class="card-text text-muted">{{ 'home.teamSuggestionsDesc' | translate }}</p>
-          <a routerLink="/team-suggestions" class="btn btn-warning mt-3 text-white">{{ 'home.goToTeamSuggestions' | translate }}</a>
+  </app-section-container>
+} @else {
+
+  @if (me()) {
+    <!-- Personalized dashboard for linked users -->
+    <app-section-container>
+      <div class="card p-4 mb-4">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+          <div>
+            <h2 class="mb-0 fw-bold">{{ 'home.welcome' | translate : { nickname: me()!.nickname } }}</h2>
+            <span class="text-muted">{{ me()!.name }}</span>
+          </div>
+          @if (me()!.matchesPlayed) {
+            <span class="badge bg-warning text-dark fs-6 px-3 py-2">
+              {{ 'home.rank' | translate : { rank: me()!.rank } }}
+            </span>
+          }
         </div>
       </div>
-    </div>
-  </div>
-</app-section-container>
+
+      @if (me()!.matchesPlayed) {
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-sm-3">
+            <div class="stat-box">
+              <div class="stat-label">{{ 'players.matches' | translate }}</div>
+              <div class="stat-value">{{ me()!.matchesPlayed }}</div>
+            </div>
+          </div>
+          <div class="col-6 col-sm-3">
+            <div class="stat-box">
+              <div class="stat-label">{{ 'players.avgKills' | translate }}</div>
+              <div class="stat-value">{{ me()!.avgKills | number:'1.1-1' }}</div>
+            </div>
+          </div>
+          <div class="col-6 col-sm-3">
+            <div class="stat-box">
+              <div class="stat-label">{{ 'players.avgDeaths' | translate }}</div>
+              <div class="stat-value">{{ me()!.avgDeaths | number:'1.1-1' }}</div>
+            </div>
+          </div>
+          <div class="col-6 col-sm-3">
+            <div class="stat-box">
+              <div class="stat-label">{{ 'players.avgAdr' | translate }}</div>
+              <div class="stat-value">{{ me()!.avgAdr | number:'1.0-0' }}</div>
+            </div>
+          </div>
+        </div>
+      }
+    </app-section-container>
+  }
+
+  <!-- Latest match card (always shown when data is available) -->
+  @if (latestMatch()) {
+    <app-section-container>
+      <div class="section-label mb-3">{{ 'home.latestMatch' | translate }}</div>
+      <div
+        class="latest-match-card"
+        [style.backgroundImage]="mapBackground(latestMatch()!.map)"
+        (click)="router.navigate(['/matches', latestMatch()!.id])"
+      >
+        <div class="latest-match-card__overlay">
+          <!-- Left: logo + score + meta -->
+          <div class="latest-match-card__left">
+            <img class="latest-match-card__logo" [src]="mapLogo(latestMatch()!.map)" [alt]="latestMatch()!.map" />
+            <div class="latest-match-card__score">
+              {{ latestMatch()!.team1Score }}:{{ latestMatch()!.team2Score }}
+            </div>
+            <div class="latest-match-card__meta">
+              {{ latestMatch()!.map }} &middot; {{ latestMatch()!.playedAt | date:'EEE d. M. yyyy' | uppercase }}
+            </div>
+          </div>
+
+          <!-- Right: teams -->
+          <div class="latest-match-card__teams">
+            <div class="lmc-team">
+              <div class="lmc-team__header lmc-team__header--1">TEAM 1</div>
+              @for (p of latestMatch()!.team1Players; track p.playerId) {
+                <div class="lmc-row">
+                  <span class="lmc-name">{{ p.playerNickname }}</span>
+                  <span class="lmc-adr lmc-adr--1">{{ p.adr | number:'1.0-0' }}</span>
+                </div>
+              }
+            </div>
+            <div class="lmc-team">
+              <div class="lmc-team__header lmc-team__header--2">TEAM 2</div>
+              @for (p of latestMatch()!.team2Players; track p.playerId) {
+                <div class="lmc-row">
+                  <span class="lmc-name">{{ p.playerNickname }}</span>
+                  <span class="lmc-adr lmc-adr--2">{{ p.adr | number:'1.0-0' }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-section-container>
+  }
+
+  @if (!me()) {
+    <!-- Generic nav cards for non-linked users -->
+    <app-section-container>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card h-100 p-4">
+            <div class="card-body">
+              <h3 class="card-title fw-bold mb-2">
+                <span class="text-primary me-2">&#9654;</span>
+                {{ 'players.title' | translate }}
+              </h3>
+              <p class="card-text text-muted">{{ 'home.playersDesc' | translate }}</p>
+              <a routerLink="/players" class="btn btn-primary mt-3">{{ 'home.goToPlayers' | translate }}</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card h-100 p-4">
+            <div class="card-body">
+              <h3 class="card-title fw-bold mb-2">
+                <span class="text-warning me-2">&#9670;</span>
+                {{ 'teamSuggestions.title' | translate }}
+              </h3>
+              <p class="card-text text-muted">{{ 'home.teamSuggestionsDesc' | translate }}</p>
+              <a routerLink="/team-suggestions" class="btn btn-warning mt-3 text-white">{{ 'home.goToTeamSuggestions' | translate }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-section-container>
+  }
+}

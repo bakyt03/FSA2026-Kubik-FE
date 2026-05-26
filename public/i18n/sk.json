@@ -77,5 +77,19 @@
   "users.submit": "Vytvoriť používateľa",
   "users.success": "Používateľ bol úspešne vytvorený.",
   "users.error": "Vytvorenie používateľa zlyhalo. Skúste znova.",
-  "users.errorConflict": "Používateľ s týmto emailom už existuje."
+  "users.errorConflict": "Používateľ s týmto emailom už existuje.",
+  "home.welcome": "Vitaj späť, {{nickname}}!",
+  "home.rank": "Rank #{{rank}} spomedzi priateľov",
+  "home.lastMatch": "Posledný zápas",
+  "home.latestMatch": "POSLEDNÝ ZÁPAS",
+  "home.notLinked": "Váš účet nie je prepojený so žiadnym profilom hráča.",
+  "players.linkedAccount": "Prepojený účet",
+  "players.linkedTo": "Prepojený s",
+  "players.notLinkedYet": "Tento hráč ešte nie je prepojený so žiadnym používateľským účtom.",
+  "players.selectUser": "Vybrať používateľa Keycloak",
+  "players.linkUser": "Prepojiť",
+  "players.unlinkUser": "Odpojiť",
+  "players.linkSuccess": "Hráč bol úspešne prepojený s používateľským účtom.",
+  "players.unlinkSuccess": "Hráč bol odpojený od používateľského účtu.",
+  "players.linkConflict": "Tento používateľský účet je už prepojený s iným hráčom."
 }
