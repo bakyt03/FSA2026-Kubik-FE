@@ -37,28 +37,48 @@
         <thead class="table-light">
           <tr>
             <th class="ps-4">#</th>
-            <th>{{ 'players.name' | translate }}</th>
-            <th>{{ 'players.nickname' | translate }}</th>
-            <th class="text-center">{{ 'players.matches' | translate }}</th>
-            <th class="text-center">{{ 'players.avgKills' | translate }}</th>
-            <th class="text-center">{{ 'players.avgDeaths' | translate }}</th>
-            <th class="text-center">{{ 'players.avgAdr' | translate }}</th>
+            <th class="sortable" (click)="sort('nickname')">
+              {{ 'players.nickname' | translate }} <span class="sort-icon">{{ sortIcon('nickname') }}</span>
+            </th>
+            <th class="text-center sortable" (click)="sort('avgKills')">
+              {{ 'players.kpg' | translate }} <span class="sort-icon">{{ sortIcon('avgKills') }}</span>
+            </th>
+            <th class="text-center sortable" (click)="sort('avgKillsPerRound')">
+              {{ 'players.kpr' | translate }} <span class="sort-icon">{{ sortIcon('avgKillsPerRound') }}</span>
+            </th>
+            <th class="text-center sortable" (click)="sort('avgDeaths')">
+              {{ 'players.dpg' | translate }} <span class="sort-icon">{{ sortIcon('avgDeaths') }}</span>
+            </th>
+            <th class="text-center sortable" (click)="sort('avgKdRatio')">
+              {{ 'players.kd' | translate }} <span class="sort-icon">{{ sortIcon('avgKdRatio') }}</span>
+            </th>
+            <th class="text-center sortable" (click)="sort('avgAdr')">
+              {{ 'players.avgAdr' | translate }} <span class="sort-icon">{{ sortIcon('avgAdr') }}</span>
+            </th>
+            <th class="text-center sortable" (click)="sort('winRate')">
+              {{ 'players.winPct' | translate }} <span class="sort-icon">{{ sortIcon('winRate') }}</span>
+            </th>
+            <th class="text-center sortable" (click)="sort('matchesPlayed')">
+              {{ 'players.gp' | translate }} <span class="sort-icon">{{ sortIcon('matchesPlayed') }}</span>
+            </th>
           </tr>
         </thead>
         <tbody>
-          @for (player of players(); track player.id; let i = $index) {
+          @for (player of sortedPlayers(); track player.id; let i = $index) {
             <tr style="cursor: pointer" (click)="onPlayerClick(player.id)">
               <td class="ps-4 text-muted">{{ i + 1 }}</td>
-              <td class="fw-semibold">{{ player.name }}</td>
               <td>
                 <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-3">
                   {{ player.nickname }}
                 </span>
               </td>
-              <td class="text-center text-muted">{{ player.matchesPlayed ?? '—' }}</td>
               <td class="text-center">{{ player.matchesPlayed ? (player.avgKills | number:'1.1-1') : '—' }}</td>
+              <td class="text-center">{{ player.matchesPlayed ? (player.avgKillsPerRound | number:'1.2-2') : '—' }}</td>
               <td class="text-center">{{ player.matchesPlayed ? (player.avgDeaths | number:'1.1-1') : '—' }}</td>
+              <td class="text-center">{{ player.matchesPlayed ? (player.avgKdRatio | number:'1.2-2') : '—' }}</td>
               <td class="text-center">{{ player.matchesPlayed ? (player.avgAdr | number:'1.0-0') : '—' }}</td>
+              <td class="text-center">{{ (player.matchesPlayed && player.winRate != null) ? (player.winRate | number:'1.0-0') + '%' : '—' }}</td>
+              <td class="text-center text-muted">{{ player.matchesPlayed ?? '—' }}</td>
             </tr>
           }
         </tbody>

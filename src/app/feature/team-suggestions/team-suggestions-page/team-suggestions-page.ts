@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DecimalPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { PlayerApi } from '../../players/player-api';
 import { TeamApi } from '../team-api';
 import { PlayerSummary } from '../../players/model/player.model';
@@ -10,8 +11,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-team-suggestions-page',
-  imports: [SectionContainer, TranslatePipe, DecimalPipe],
+  imports: [SectionContainer, TranslatePipe, DecimalPipe, FormsModule],
   templateUrl: './team-suggestions-page.html',
+  styleUrl: './team-suggestions-page.scss',
 })
 export class TeamSuggestionsPage {
   private playerApi = inject(PlayerApi);
@@ -22,6 +24,7 @@ export class TeamSuggestionsPage {
   protected result = signal<TeamSuggestionResponse | null>(null);
   protected loading = signal(false);
   protected error = signal<string | null>(null);
+  protected searchNickname = signal('');
 
   protected availablePlayers = computed(() => {
     const selected = this.selectedPlayers();
@@ -30,7 +33,33 @@ export class TeamSuggestionsPage {
     );
   });
 
+  protected filteredAvailable = computed(() => {
+    const search = this.searchNickname().toLowerCase().trim();
+    return this.availablePlayers().filter(
+      (p) => !search || p.nickname.toLowerCase().includes(search),
+    );
+  });
+
+  protected allPlayersMap = computed(() => {
+    const map = new Map<number, PlayerSummary>();
+    for (const p of this.allPlayers() ?? []) map.set(p.id, p);
+    return map;
+  });
+
   protected canGenerate = computed(() => this.selectedPlayers().length === 10);
+
+  protected playerAdr(player: PlayerSummary): number {
+    return this.allPlayersMap().get(player.id)?.avgAdr ?? 0;
+  }
+
+  protected teamTotalAdr(players: PlayerSummary[]): number {
+    return players.reduce((sum, p) => sum + this.playerAdr(p), 0);
+  }
+
+  protected teamAvgAdr(players: PlayerSummary[]): number {
+    if (!players.length) return 0;
+    return this.teamTotalAdr(players) / players.length;
+  }
 
   protected selectPlayer(player: PlayerSummary) {
     if (this.selectedPlayers().length >= 10) return;

@@ -58,6 +58,21 @@ body {
   font-weight: 600;
 }
 
+th.sortable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+
+  .sort-icon {
+    font-size: 0.75rem;
+    opacity: 0.6;
+  }
+}
+
 .player-chip {
   display: inline-flex;
   align-items: center;

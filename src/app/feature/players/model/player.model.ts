@@ -6,6 +6,9 @@ export interface PlayerSummary {
   avgKills?: number;
   avgDeaths?: number;
   avgAdr?: number;
+  avgKdRatio?: number;
+  winRate?: number;
+  avgKillsPerRound?: number;
   keycloakId?: string | null;
 }
 
