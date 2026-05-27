@@ -6,7 +6,7 @@ export const authCodeFlowConfig: AuthConfig = {
   redirectUri: environment.appUrl + '/home',
   clientId: 'fsa-client',
   responseType: 'code',
-  scope: 'openid profile email',
+  scope: 'openid profile email roles',
   showDebugInformation: true,
   requireHttps: false,
 };
