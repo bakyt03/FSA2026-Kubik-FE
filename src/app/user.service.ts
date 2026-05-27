@@ -10,6 +10,9 @@ export class UserService {
   private oauthService = inject(OAuthService);
   private user = signal<UserModel | undefined>(undefined);
   private roles = signal<string[]>([]);
+  // Stored so tryLogin() awaits the same Promise rather than firing a second
+  // loadDiscoveryDocumentAndTryLogin() call that races with this one.
+  private readonly loginReady: Promise<void>;
 
   readonly isAdmin = computed(() => this.roles().includes('ADMIN'));
 
@@ -26,7 +29,7 @@ export class UserService {
       }
     });
 
-    this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+    this.loginReady = this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
       if (this.oauthService.hasValidAccessToken()) {
         this.user.set(this.oauthService.getIdentityClaims() as UserModel);
         this.syncRoles();
@@ -47,7 +50,7 @@ export class UserService {
   }
 
   async tryLogin() {
-    await this.oauthService.loadDiscoveryDocumentAndTryLogin();
+    await this.loginReady;
     return this.user();
   }
 

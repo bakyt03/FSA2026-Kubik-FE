@@ -8,6 +8,7 @@ import { PlayerMeDetail } from '../players/model/player.model';
 import { MatchApi } from '../matches/match-api';
 import { MatchDetail } from '../matches/model/match.model';
 import { catchError, of, switchMap } from 'rxjs';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-home',
@@ -17,13 +18,15 @@ import { catchError, of, switchMap } from 'rxjs';
 export class Home implements OnInit {
   private playerApi = inject(PlayerApi);
   private matchApi = inject(MatchApi);
+  private userService = inject(UserService);
   protected router = inject(Router);
 
   protected me = signal<PlayerMeDetail | null>(null);
   protected latestMatch = signal<MatchDetail | null>(null);
   protected loaded = signal(false);
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.userService.tryLogin();
     this.playerApi.getMe().pipe(
       catchError(() => of(null))
     ).subscribe(result => {
