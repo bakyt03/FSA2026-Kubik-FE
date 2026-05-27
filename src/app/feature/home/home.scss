@@ -1,0 +1,233 @@
+// ── Personal stat boxes (light background) ──────────────────────────────────
+.stat-box {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  text-align: center;
+
+  .stat-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #212529;
+  }
+}
+
+// ── Overall stats bar ────────────────────────────────────────────────────────
+.overall-stat-card {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+  border-radius: 0.75rem;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  color: #fff;
+
+  &__value {
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    letter-spacing: -1px;
+  }
+
+  &__label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.65);
+  }
+}
+
+// ── "View all" link ──────────────────────────────────────────────────────────
+.home-view-all {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #dc3545;
+  text-decoration: none;
+  transition: opacity 0.15s;
+
+  &:hover {
+    opacity: 0.75;
+    color: #dc3545;
+  }
+}
+
+// ── Recent matches grid ──────────────────────────────────────────────────────
+.match-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.875rem;
+
+  @media (max-width: 1199px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.match-card {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 0.75rem;
+    border: 2px solid transparent;
+    transition: border-color 0.15s;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &--win::before {
+    border-color: rgba(25, 135, 84, 0.6);
+  }
+
+  &--loss::before {
+    border-color: rgba(220, 53, 69, 0.5);
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+  }
+
+  &__overlay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.25rem 0.75rem 1rem;
+    background: rgba(10, 12, 24, 0.76);
+    min-height: 170px;
+    position: relative;
+    z-index: 1;
+    gap: 0.3rem;
+  }
+
+  &__logo {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+    margin-bottom: 0.25rem;
+  }
+
+  &__score {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  &__map {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  &__date {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__personal {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 0.5rem;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+// ── Map frequency grid ───────────────────────────────────────────────────────
+.map-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.875rem;
+
+  @media (max-width: 1199px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.map-card {
+  background: #1e2030;
+  border-radius: 0.75rem;
+  padding: 1.1rem 0.5rem 0.9rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &__logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-bottom: 0.3rem;
+  }
+
+  &__name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__count {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #e46bae;
+    line-height: 1.1;
+  }
+
+  &__percent {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.45);
+  }
+}
