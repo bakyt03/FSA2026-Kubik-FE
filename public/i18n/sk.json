@@ -114,5 +114,11 @@
   "players.unlinkUser": "Odpojiť",
   "players.linkSuccess": "Hráč bol úspešne prepojený s používateľským účtom.",
   "players.unlinkSuccess": "Hráč bol odpojený od používateľského účtu.",
-  "players.linkConflict": "Tento používateľský účet je už prepojený s iným hráčom."
+  "players.linkConflict": "Tento používateľský účet je už prepojený s iným hráčom.",
+  "players.dangerZone": "Nebezpečná zóna",
+  "players.deletePlayer": "Zmazať hráča",
+  "matches.deleteMatch": "Zmazať zápas",
+  "users.usersListTitle": "Registrovaní používatelia",
+  "users.noUsers": "Žiadni používatelia.",
+  "users.deleteUser": "Zmazať"
 }

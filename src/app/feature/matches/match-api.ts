@@ -21,4 +21,8 @@ export class MatchApi {
   create(request: CreateMatchRequest) {
     return this.http.post<void>(this.url, request);
   }
+
+  delete(id: number) {
+    return this.http.delete<void>(`${this.url}/${id}`);
+  }
 }

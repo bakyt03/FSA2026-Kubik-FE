@@ -1,6 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Subject, startWith, switchMap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { SectionContainer } from '../../../shared/component/section-container/section-container';
 import { UserManagementApi } from '../user-management-api';
 
@@ -12,6 +14,15 @@ import { UserManagementApi } from '../user-management-api';
 })
 export class UsersPage {
   private userManagementApi = inject(UserManagementApi);
+
+  private refresh$ = new Subject<void>();
+  protected users = toSignal(
+    this.refresh$.pipe(
+      startWith(null),
+      switchMap(() => this.userManagementApi.getKeycloakUsers()),
+    ),
+  );
+  protected deleteLoading = signal<string | null>(null);
 
   protected form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -44,6 +55,18 @@ export class UsersPage {
           this.error.set('generic');
         }
       },
+    });
+  }
+
+  protected deleteUser(id: string) {
+    if (!window.confirm('Are you sure you want to delete this user? Their player profile will be unlinked.')) return;
+    this.deleteLoading.set(id);
+    this.userManagementApi.deleteUser(id).subscribe({
+      next: () => {
+        this.deleteLoading.set(null);
+        this.refresh$.next();
+      },
+      error: () => this.deleteLoading.set(null),
     });
   }
 }

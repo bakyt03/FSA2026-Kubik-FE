@@ -15,4 +15,8 @@ export class UserManagementApi {
   getKeycloakUsers(): Observable<KeycloakUserDto[]> {
     return this.http.get<KeycloakUserDto[]>(environment.beUrl + '/users');
   }
+
+  deleteUser(id: string): Observable<void> {
+    return this.http.delete<void>(`${environment.beUrl}/users/${id}`);
+  }
 }

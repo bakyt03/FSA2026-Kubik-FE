@@ -114,5 +114,11 @@
   "players.unlinkUser": "Unlink",
   "players.linkSuccess": "Player successfully linked to user account.",
   "players.unlinkSuccess": "Player unlinked from user account.",
-  "players.linkConflict": "This user account is already linked to another player."
+  "players.linkConflict": "This user account is already linked to another player.",
+  "players.dangerZone": "Danger Zone",
+  "players.deletePlayer": "Delete Player",
+  "matches.deleteMatch": "Delete Match",
+  "users.usersListTitle": "Registered Users",
+  "users.noUsers": "No users found.",
+  "users.deleteUser": "Delete"
 }

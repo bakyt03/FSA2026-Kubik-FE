@@ -5,6 +5,7 @@ import { switchMap } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { MatchApi } from '../match-api';
 import { TranslatePipe } from '@ngx-translate/core';
+import { UserService } from '../../../user.service';
 
 @Component({
   selector: 'app-match-detail-page',
@@ -16,8 +17,10 @@ export class MatchDetailPage {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private matchApi = inject(MatchApi);
+  protected userService = inject(UserService);
 
   protected activeTab = signal<'DAMAGE' | 'ADR'>('DAMAGE');
+  protected deleteLoading = signal(false);
 
   protected match = toSignal(
     this.route.paramMap.pipe(
@@ -52,5 +55,16 @@ export class MatchDetailPage {
 
   protected goBack() {
     this.router.navigate(['/matches']);
+  }
+
+  protected deleteMatch() {
+    const m = this.match();
+    if (!m) return;
+    if (!window.confirm('Are you sure you want to delete this match? All match statistics will be permanently deleted.')) return;
+    this.deleteLoading.set(true);
+    this.matchApi.delete(m.id).subscribe({
+      next: () => this.router.navigate(['/matches']),
+      error: () => this.deleteLoading.set(false),
+    });
   }
 }

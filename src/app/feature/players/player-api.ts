@@ -33,4 +33,8 @@ export class PlayerApi {
   unlinkUser(id: number) {
     return this.http.delete<void>(`${this.url}/${id}/link-user`);
   }
+
+  delete(id: number) {
+    return this.http.delete<void>(`${this.url}/${id}`);
+  }
 }

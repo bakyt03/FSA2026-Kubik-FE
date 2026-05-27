@@ -95,6 +95,24 @@ export class PlayerDetailPage {
     });
   }
 
+  protected deleteLoading = signal(false);
+  protected deleteError = signal<string | null>(null);
+
+  protected deletePlayer() {
+    const player = this.player();
+    if (!player) return;
+    if (!window.confirm('Are you sure you want to delete this player? All their match stats will also be permanently deleted.')) return;
+    this.deleteLoading.set(true);
+    this.deleteError.set(null);
+    this.playerApi.delete(player.id).subscribe({
+      next: () => this.router.navigate(['/players']),
+      error: () => {
+        this.deleteLoading.set(false);
+        this.deleteError.set('error.generic');
+      },
+    });
+  }
+
   protected getMapBackground(map: string): string {
     const name = map.charAt(0) + map.slice(1).toLowerCase();
     const ext = map === 'ANUBIS' ? 'webp' : 'jpg';

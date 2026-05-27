@@ -30,6 +30,23 @@
         <span class="match-date">{{ formatDate(match()!.playedAt) }}</span>
       </div>
 
+      <!-- Admin: delete match -->
+      @if (userService.isAdmin()) {
+        <div class="delete-row mt-2">
+          <button
+            type="button"
+            class="btn btn-outline-danger btn-sm"
+            (click)="deleteMatch()"
+            [disabled]="deleteLoading()"
+          >
+            @if (deleteLoading()) {
+              <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+            }
+            {{ 'matches.deleteMatch' | translate }}
+          </button>
+        </div>
+      }
+
       <!-- DAMAGE / ADR tabs -->
       <div class="tabs-row">
         <button
