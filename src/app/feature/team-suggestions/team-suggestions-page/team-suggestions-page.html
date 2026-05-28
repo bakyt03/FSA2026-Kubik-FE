@@ -119,7 +119,7 @@
         <strong>{{ 'teamSuggestions.warnings' | translate }}:</strong>
         <ul class="mb-0 mt-2">
           @for (w of res.warnings; track w) {
-            <li>{{ w }}</li>
+            <li>{{ translateWarning(w) }}</li>
           }
         </ul>
       </div>

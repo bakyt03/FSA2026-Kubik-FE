@@ -47,6 +47,7 @@
   "teamSuggestions.balanceScore": "Skóre vyváženosti",
   "teamSuggestions.suggestion": "Návrh",
   "teamSuggestions.warnings": "Upozornenia",
+  "teamSuggestions.warning.noMatchHistory": "Hráč '{{nickname}}' nemá históriu zápasov – použité neutrálne hodnoty",
   "teamSuggestions.noPlayers": "Hráčov sa nepodarilo načítať.",
   "teamSuggestions.maxAdrDiff": "Max. rozdiel ADR",
   "teamSuggestions.noResults": "Neboli nájdené žiadne návrhy v rámci tohto rozdielu ADR. Skúste zvýšiť práh.",

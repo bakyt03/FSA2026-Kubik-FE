@@ -47,6 +47,7 @@
   "teamSuggestions.balanceScore": "Balance Score",
   "teamSuggestions.suggestion": "Suggestion",
   "teamSuggestions.warnings": "Warnings",
+  "teamSuggestions.warning.noMatchHistory": "Player '{{nickname}}' has no match history – using neutral values",
   "teamSuggestions.noPlayers": "Could not load players.",
   "teamSuggestions.maxAdrDiff": "Max ADR difference",
   "teamSuggestions.noResults": "No suggestions found within this ADR difference. Try increasing the threshold.",

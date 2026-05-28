@@ -7,7 +7,7 @@ import { TeamApi } from '../team-api';
 import { PlayerSummary } from '../../players/model/player.model';
 import { TeamSuggestionResponse } from '../model/team-suggestion.model';
 import { SectionContainer } from '../../../shared/component/section-container/section-container';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-team-suggestions-page',
@@ -18,6 +18,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class TeamSuggestionsPage {
   private playerApi = inject(PlayerApi);
   private teamApi = inject(TeamApi);
+  private translate = inject(TranslateService);
 
   protected allPlayers = toSignal(this.playerApi.getAll());
   protected selectedPlayers = signal<PlayerSummary[]>([]);
@@ -26,6 +27,14 @@ export class TeamSuggestionsPage {
   protected error = signal<string | null>(null);
   protected searchNickname = signal('');
   protected maxAdrDifference = signal(5);
+
+  protected translateWarning(w: string): string {
+    const colonIdx = w.indexOf(':');
+    if (colonIdx === -1) return w;
+    const key = w.substring(0, colonIdx);
+    const nickname = w.substring(colonIdx + 1);
+    return this.translate.instant(`teamSuggestions.warning.${key}`, { nickname });
+  }
 
   protected availablePlayers = computed(() => {
     const selected = this.selectedPlayers();
