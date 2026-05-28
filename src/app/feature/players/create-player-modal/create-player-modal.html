@@ -32,12 +32,12 @@
         class="form-control"
         formControlName="nickname"
         [placeholder]="'players.create.nicknamePlaceholder' | translate"
-        [class.is-invalid]="(form.controls.nickname.invalid && form.controls.nickname.touched) || nicknameTaken"
+        [class.is-invalid]="(form.controls.nickname.invalid && form.controls.nickname.touched) || nicknameTaken()"
       />
       @if (form.controls.nickname.invalid && form.controls.nickname.touched) {
         <div class="invalid-feedback">{{ 'players.create.nicknameRequired' | translate }}</div>
       }
-      @if (nicknameTaken) {
+      @if (nicknameTaken()) {
         <div class="invalid-feedback d-block">{{ 'players.create.nicknameTaken' | translate }}</div>
       }
     </div>
@@ -47,8 +47,8 @@
     <button type="button" class="btn btn-outline-secondary" (click)="close()">
       {{ 'players.create.cancel' | translate }}
     </button>
-    <button type="submit" class="btn btn-primary" [disabled]="loading">
-      @if (loading) {
+    <button type="submit" class="btn btn-primary" [disabled]="loading()">
+      @if (loading()) {
         <span class="spinner-border spinner-border-sm me-2" role="status"></span>
       }
       {{ 'players.create.submit' | translate }}

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -18,8 +18,8 @@ export class CreatePlayerModal {
     nickname: new FormControl('', [Validators.required, Validators.minLength(1)]),
   });
 
-  protected nicknameTaken = false;
-  protected loading = false;
+  protected nicknameTaken = signal(false);
+  protected loading = signal(false);
 
   protected close() {
     this.modal.dismiss();
@@ -31,8 +31,8 @@ export class CreatePlayerModal {
       return;
     }
 
-    this.nicknameTaken = false;
-    this.loading = true;
+    this.nicknameTaken.set(false);
+    this.loading.set(true);
 
     this.playerApi
       .create({
@@ -41,13 +41,13 @@ export class CreatePlayerModal {
       })
       .subscribe({
         next: () => {
-          this.loading = false;
+          this.loading.set(false);
           this.modal.close('created');
         },
         error: (err: HttpErrorResponse) => {
-          this.loading = false;
+          this.loading.set(false);
           if (err.status === 409) {
-            this.nicknameTaken = true;
+            this.nicknameTaken.set(true);
           }
         },
       });
