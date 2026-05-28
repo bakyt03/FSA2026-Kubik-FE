@@ -15,7 +15,7 @@
   </app-section-container>
 } @else {
 
-  <!-- ── Personal banner (linked users only) ──────────────────────────── -->
+  <!--Personal banner (linked users only)-->
   @if (me()) {
     <app-section-container>
       <div class="card p-4 mb-4">
@@ -73,7 +73,7 @@
     </app-section-container>
   }
 
-  <!-- ── Overall stats ──────────────────────────────────────────────────── -->
+  <!--Overall stats-->
   @if (totalMatches() > 0) {
     <app-section-container>
       <div class="section-label mb-3">{{ 'home.overallStats' | translate }}</div>
@@ -100,7 +100,7 @@
     </app-section-container>
   }
 
-  <!-- ── Latest match (full detail card) ──────────────────────────────── -->
+  <!-- Latest match (full detail card) -->
   @if (latestMatch()) {
     <app-section-container>
       <div class="section-label mb-3">{{ 'home.latestMatch' | translate }}</div>
@@ -144,7 +144,7 @@
     </app-section-container>
   }
 
-  <!-- ── Recent matches grid ────────────────────────────────────────────── -->
+  <!--Recent matches grid-->
   <app-section-container>
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div class="section-label">
@@ -203,7 +203,7 @@
     }
   </app-section-container>
 
-  <!-- ── Map frequency ──────────────────────────────────────────────────── -->
+  <!-- Map frequency -->
   @if (mapFrequency().length > 0) {
     <app-section-container>
       <div class="section-label mb-3">{{ 'home.mapFrequency' | translate }}</div>

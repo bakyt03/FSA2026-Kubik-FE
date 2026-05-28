@@ -1,7 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
+import { EMPTY, switchMap } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { DecimalPipe } from '@angular/common';
 import { MatchApi } from '../match-api';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -24,7 +25,14 @@ export class MatchDetailPage {
 
   protected match = toSignal(
     this.route.paramMap.pipe(
-      switchMap((params) => this.matchApi.getById(Number(params.get('id')))),
+      switchMap((params) =>
+        this.matchApi.getById(Number(params.get('id'))).pipe(
+          catchError(() => {
+            this.router.navigate(['/not-found'], { replaceUrl: true });
+            return EMPTY;
+          }),
+        ),
+      ),
     ),
   );
 

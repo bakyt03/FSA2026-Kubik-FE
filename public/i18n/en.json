@@ -6,7 +6,7 @@
   "nav.login": "Login",
   "nav.logout": "Logout",
   "home.title": "Stats Tracker",
-  "home.subtitle": "Manage players and generate balanced CS2 team suggestions",
+  "home.subtitle": "Manage players and generate balanced CS2 teams",
   "home.playersDesc": "View all registered players, add new ones, and manage the player roster.",
   "home.goToPlayers": "View Players",
   "home.teamSuggestionsDesc": "Select 10 players and get AI-balanced 5v5 team suggestions based on HLTV rating, ADR and K/D.",

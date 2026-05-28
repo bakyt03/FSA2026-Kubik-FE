@@ -1,7 +1,8 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
+import { EMPTY, switchMap } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PlayerApi } from '../player-api';
@@ -28,7 +29,14 @@ export class PlayerDetailPage {
 
   protected player = toSignal(
     this.route.paramMap.pipe(
-      switchMap((params) => this.playerApi.getById(Number(params.get('id')))),
+      switchMap((params) =>
+        this.playerApi.getById(Number(params.get('id'))).pipe(
+          catchError(() => {
+            this.router.navigate(['/not-found'], { replaceUrl: true });
+            return EMPTY;
+          }),
+        ),
+      ),
     ),
   );
 
