@@ -44,6 +44,8 @@ export interface KeycloakUserDto {
   id: string;
   username: string;
   email: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 export interface LinkUserRequest {

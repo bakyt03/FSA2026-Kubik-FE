@@ -25,6 +25,8 @@ export class UsersPage {
   protected deleteLoading = signal<string | null>(null);
 
   protected form = new FormGroup({
+    firstName: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    lastName: new FormControl('', [Validators.required, Validators.minLength(1)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
   });
@@ -40,8 +42,8 @@ export class UsersPage {
     this.success.set(false);
     this.error.set(null);
 
-    const { email, password } = this.form.value;
-    this.userManagementApi.createUser(email!, password!).subscribe({
+    const { email, password, firstName, lastName } = this.form.value;
+    this.userManagementApi.createUser(email!, password!, firstName!, lastName!).subscribe({
       next: () => {
         this.loading.set(false);
         this.success.set(true);
