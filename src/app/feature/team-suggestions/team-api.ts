@@ -10,7 +10,7 @@ export class TeamApi {
   private http = inject(HttpClient);
   private readonly url = environment.beUrl + '/team-suggestions';
 
-  generateSuggestions(playerIds: number[]) {
-    return this.http.post<TeamSuggestionResponse>(this.url, { playerIds });
+  generateSuggestions(playerIds: number[], maxAdrDifference: number) {
+    return this.http.post<TeamSuggestionResponse>(this.url, { playerIds, maxAdrDifference });
   }
 }

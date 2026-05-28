@@ -11,11 +11,17 @@
     color: rgba(255, 255, 255, 0.5);
   }
 
+  &__diff {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #4ade80;
+  }
+
   &__body {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     gap: 0;
-    padding: 1rem 1.25rem 1.25rem;
+    padding: 1rem 1rem 1.25rem;
   }
 }
 
@@ -56,8 +62,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.2rem;
-  padding: 0 1.5rem;
-  min-width: 120px;
+  padding: 0 0.75rem;
+  min-width: 90px;
   text-align: center;
 
   &__value {

@@ -65,13 +65,13 @@
     }
   </div>
 
-  @if (matchDetails() === undefined) {
+  @if (initialLoading()) {
     <div class="text-center py-5">
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">{{ 'common.loading' | translate }}</span>
       </div>
     </div>
-  } @else if (filteredMatches()!.length === 0) {
+  } @else if (filteredMatches().length === 0) {
     <div class="card text-center p-5">
       <p class="text-muted mb-3">{{ hasFilters() ? ('matches.filter.noResults' | translate) : ('matches.noMatches' | translate) }}</p>
       @if (!hasFilters() && isLoggedIn()) {
@@ -105,6 +105,20 @@
         </div>
       }
     </div>
+    @if (hasMore()) {
+      <div class="text-center mt-4">
+        <button
+          class="btn btn-outline-secondary"
+          (click)="loadMore()"
+          [disabled]="loading()"
+        >
+          @if (loading()) {
+            <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+          }
+          {{ 'common.loadMore' | translate }}
+        </button>
+      </div>
+    }
   }
 
 </app-section-container>

@@ -10,8 +10,8 @@ export class MatchApi {
   private http = inject(HttpClient);
   private readonly url = environment.beUrl + '/matches';
 
-  getAll() {
-    return this.http.get<MatchSummary[]>(this.url);
+  getAll(page: number = 0, size: number = 25) {
+    return this.http.get<MatchSummary[]>(`${this.url}?page=${page}&size=${size}`);
   }
 
   getById(id: number) {

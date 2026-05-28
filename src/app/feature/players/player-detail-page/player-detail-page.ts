@@ -11,6 +11,8 @@ import { KeycloakUserDto, PlayerMatchHistoryEntry, PlayerSummary } from '../mode
 import { UserService } from '../../../user.service';
 import { UserManagementApi } from '../../users/user-management-api';
 
+const MATCH_PAGE_SIZE = 10;
+
 @Component({
   selector: 'app-player-detail-page',
   imports: [DecimalPipe, FormsModule, SectionContainer, TranslatePipe],
@@ -35,6 +37,12 @@ export class PlayerDetailPage {
   protected selectedKeycloakId = signal<string>('');
   protected linkMessage = signal<string | null>(null);
   protected linkError = signal<string | null>(null);
+
+  // Match history pagination
+  private matchHistoryPage = 0;
+  protected matchHistory = signal<PlayerMatchHistoryEntry[]>([]);
+  protected hasMoreMatches = signal(true);
+  protected loadingMatches = signal(false);
 
   /** Keycloak users not yet linked to any OTHER player */
   protected filteredKeycloakUsers = computed(() => {
@@ -63,6 +71,34 @@ export class PlayerDetailPage {
           next: (players) => this.allPlayers.set(players),
         });
       }
+    });
+
+    // Load first page of match history when player ID changes
+    this.route.paramMap.subscribe(params => {
+      const id = Number(params.get('id'));
+      if (id) {
+        this.matchHistoryPage = 0;
+        this.matchHistory.set([]);
+        this.hasMoreMatches.set(true);
+        this.loadMoreMatches(id);
+      }
+    });
+  }
+
+  protected loadMoreMatches(playerId?: number): void {
+    const id = playerId ?? this.player()?.id;
+    if (!id || this.loadingMatches()) return;
+    this.loadingMatches.set(true);
+    this.playerApi.getMatchHistory(id, this.matchHistoryPage, MATCH_PAGE_SIZE).subscribe({
+      next: (entries) => {
+        if (entries.length < MATCH_PAGE_SIZE) {
+          this.hasMoreMatches.set(false);
+        }
+        this.matchHistory.update(existing => [...existing, ...entries]);
+        this.matchHistoryPage++;
+        this.loadingMatches.set(false);
+      },
+      error: () => this.loadingMatches.set(false),
     });
   }
 
@@ -138,3 +174,4 @@ export class PlayerDetailPage {
     this.router.navigate(['/players']);
   }
 }
+

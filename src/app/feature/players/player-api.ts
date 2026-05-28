@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CreatePlayerRequest, PlayerDetail, PlayerMeDetail, PlayerSummary } from './model/player.model';
+import { CreatePlayerRequest, PlayerDetail, PlayerMatchHistoryEntry, PlayerMeDetail, PlayerSummary } from './model/player.model';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -36,5 +36,9 @@ export class PlayerApi {
 
   delete(id: number) {
     return this.http.delete<void>(`${this.url}/${id}`);
+  }
+
+  getMatchHistory(id: number, page: number = 0, size: number = 10) {
+    return this.http.get<PlayerMatchHistoryEntry[]>(`${this.url}/${id}/matches?page=${page}&size=${size}`);
   }
 }

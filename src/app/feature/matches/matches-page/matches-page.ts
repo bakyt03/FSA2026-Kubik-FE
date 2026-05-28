@@ -1,14 +1,16 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { BehaviorSubject, forkJoin, of, switchMap } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { forkJoin } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatchApi } from '../match-api';
 import { PlayerApi } from '../../players/player-api';
-import { MatchDetail } from '../model/match.model';
+import { MatchDetail, MatchSummary } from '../model/match.model';
 import { SectionContainer } from '../../../shared/component/section-container/section-container';
 import { TranslatePipe } from '@ngx-translate/core';
 import { UserService } from '../../../user.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+
+const PAGE_SIZE = 25;
 
 @Component({
   selector: 'app-matches-page',
@@ -24,22 +26,16 @@ export class MatchesPage {
 
   protected readonly isLoggedIn = this.userService.getUser();
 
-  private refresh$ = new BehaviorSubject<void>(undefined);
-
-  protected matchDetails = toSignal(
-    this.refresh$.pipe(
-      switchMap(() => this.api.getAll()),
-      switchMap(summaries => {
-        if (!summaries?.length) return of([] as MatchDetail[]);
-        return forkJoin(summaries.map(s => this.api.getById(s.id)));
-      }),
-    ),
-  );
+  private currentPage = 0;
+  protected loadedMatches = signal<MatchDetail[]>([]);
+  protected hasMore = signal(true);
+  protected loading = signal(false);
+  protected initialLoading = signal(true);
 
   protected allPlayers = toSignal(this.playerApi.getAll());
 
   protected availableMaps = computed(() => {
-    const matches = this.matchDetails();
+    const matches = this.loadedMatches();
     if (!matches?.length) return [];
     return [...new Set(matches.map(m => m.map))].sort();
   });
@@ -54,8 +50,7 @@ export class MatchesPage {
   );
 
   protected filteredMatches = computed(() => {
-    const matches = this.matchDetails();
-    if (!matches) return undefined;
+    const matches = this.loadedMatches();
     const map = this.filterMap();
     const playerId = this.filterPlayer();
     const from = this.filterDateFrom();
@@ -72,6 +67,51 @@ export class MatchesPage {
       return true;
     });
   });
+
+  constructor() {
+    this.loadMore();
+  }
+
+  protected loadMore(): void {
+    if (this.loading()) return;
+    this.loading.set(true);
+    this.api.getAll(this.currentPage, PAGE_SIZE).subscribe({
+      next: (summaries: MatchSummary[]) => {
+        if (summaries.length < PAGE_SIZE) {
+          this.hasMore.set(false);
+        }
+        if (!summaries.length) {
+          this.loading.set(false);
+          this.initialLoading.set(false);
+          return;
+        }
+        forkJoin(summaries.map(s => this.api.getById(s.id))).subscribe({
+          next: (details: MatchDetail[]) => {
+            this.loadedMatches.update(existing => [...existing, ...details]);
+            this.currentPage++;
+            this.loading.set(false);
+            this.initialLoading.set(false);
+          },
+          error: () => {
+            this.loading.set(false);
+            this.initialLoading.set(false);
+          },
+        });
+      },
+      error: () => {
+        this.loading.set(false);
+        this.initialLoading.set(false);
+      },
+    });
+  }
+
+  protected refresh(): void {
+    this.loadedMatches.set([]);
+    this.currentPage = 0;
+    this.hasMore.set(true);
+    this.initialLoading.set(true);
+    this.loadMore();
+  }
 
   protected clearFilters() {
     this.filterMap.set('');
@@ -109,3 +149,4 @@ export class MatchesPage {
     return map.charAt(0) + map.slice(1).toLowerCase();
   }
 }
+

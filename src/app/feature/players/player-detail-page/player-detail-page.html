@@ -60,12 +60,12 @@
     </div>
 
     <!-- Match history -->
-    @if (player()!.recentMatches.length === 0) {
+    @if (matchHistory().length === 0 && !loadingMatches()) {
       <p class="text-muted">{{ 'players.noMatchHistory' | translate }}</p>
     } @else {
       <h5 class="mb-3">{{ 'players.matchHistory' | translate }}</h5>
       <div class="matches-grid">
-        @for (entry of player()!.recentMatches; track entry.matchId) {
+        @for (entry of matchHistory(); track entry.matchId) {
           <div
             class="match-card"
             [style.backgroundImage]="getMapBackground(entry.map)"
@@ -89,6 +89,20 @@
           </div>
         }
       </div>
+      @if (hasMoreMatches()) {
+        <div class="text-center mt-4">
+          <button
+            class="btn btn-outline-secondary"
+            (click)="loadMoreMatches()"
+            [disabled]="loadingMatches()"
+          >
+            @if (loadingMatches()) {
+              <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+            }
+            {{ 'common.loadMore' | translate }}
+          </button>
+        </div>
+      }
     }
 
     @if (userService.isAdmin()) {

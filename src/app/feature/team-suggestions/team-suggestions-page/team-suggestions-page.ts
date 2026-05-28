@@ -25,6 +25,7 @@ export class TeamSuggestionsPage {
   protected loading = signal(false);
   protected error = signal<string | null>(null);
   protected searchNickname = signal('');
+  protected maxAdrDifference = signal(5);
 
   protected availablePlayers = computed(() => {
     const selected = this.selectedPlayers();
@@ -75,7 +76,7 @@ export class TeamSuggestionsPage {
     this.error.set(null);
 
     this.teamApi
-      .generateSuggestions(this.selectedPlayers().map((p) => p.id))
+      .generateSuggestions(this.selectedPlayers().map((p) => p.id), this.maxAdrDifference())
       .subscribe({
         next: (res) => {
           this.loading.set(false);
