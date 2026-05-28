@@ -48,17 +48,12 @@ export class TeamSuggestionsPage {
 
   protected canGenerate = computed(() => this.selectedPlayers().length === 10);
 
-  protected playerAdr(player: PlayerSummary): number {
-    return this.allPlayersMap().get(player.id)?.avgAdr ?? 0;
-  }
-
   protected teamTotalAdr(players: PlayerSummary[]): number {
-    return players.reduce((sum, p) => sum + this.playerAdr(p), 0);
+    return players.reduce((sum, p) => sum + (p.avgAdr ?? 0), 0);
   }
 
-  protected teamAvgAdr(players: PlayerSummary[]): number {
-    if (!players.length) return 0;
-    return this.teamTotalAdr(players) / players.length;
+  protected sortByAdr(players: PlayerSummary[]): PlayerSummary[] {
+    return [...players].sort((a, b) => (b.avgAdr ?? 0) - (a.avgAdr ?? 0));
   }
 
   protected selectPlayer(player: PlayerSummary) {

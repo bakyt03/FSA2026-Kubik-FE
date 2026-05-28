@@ -7,7 +7,9 @@ export interface TeamDefinition {
 export interface TeamSuggestion {
   teamA: TeamDefinition;
   teamB: TeamDefinition;
-  balanceScore: number;
+  adrDifference: number;
+  teamAAdrAvg: number;
+  teamBAdrAvg: number;
 }
 
 export interface TeamSuggestionResponse {

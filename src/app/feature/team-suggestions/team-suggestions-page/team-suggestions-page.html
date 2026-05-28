@@ -119,10 +119,10 @@
 
           <!-- Team A -->
           <div class="comparison-team">
-            @for (player of suggestion.teamA.players; track player.id) {
+            @for (player of sortByAdr(suggestion.teamA.players); track player.id) {
               <div class="comparison-team__row">
                 <span class="comparison-team__name">{{ player.nickname }}</span>
-                <span class="comparison-team__adr">{{ playerAdr(player) | number:'1.0-0' }}</span>
+                <span class="comparison-team__adr">{{ player.avgAdr | number:'1.0-0' }}</span>
               </div>
             }
           </div>
@@ -130,17 +130,17 @@
           <!-- Middle stats -->
           <div class="comparison-middle">
             <div class="comparison-middle__value">{{ teamTotalAdr(suggestion.teamA.players) | number:'1.1-1' }}</div>
-            <div class="comparison-middle__label">{{ teamAvgAdr(suggestion.teamA.players) | number:'1.1-1' }} avg</div>
-            <div class="comparison-middle__balance">±{{ suggestion.balanceScore | number:'1.2-2' }}</div>
-            <div class="comparison-middle__label">{{ teamAvgAdr(suggestion.teamB.players) | number:'1.1-1' }} avg</div>
+            <div class="comparison-middle__label">{{ suggestion.teamAAdrAvg | number:'1.1-1' }} avg</div>
+            <div class="comparison-middle__balance">±{{ suggestion.adrDifference | number:'1.2-2' }}</div>
+            <div class="comparison-middle__label">{{ suggestion.teamBAdrAvg | number:'1.1-1' }} avg</div>
             <div class="comparison-middle__value">{{ teamTotalAdr(suggestion.teamB.players) | number:'1.1-1' }}</div>
           </div>
 
           <!-- Team B -->
           <div class="comparison-team comparison-team--right">
-            @for (player of suggestion.teamB.players; track player.id) {
+            @for (player of sortByAdr(suggestion.teamB.players); track player.id) {
               <div class="comparison-team__row">
-                <span class="comparison-team__adr">{{ playerAdr(player) | number:'1.0-0' }}</span>
+                <span class="comparison-team__adr">{{ player.avgAdr | number:'1.0-0' }}</span>
                 <span class="comparison-team__name">{{ player.nickname }}</span>
               </div>
             }
